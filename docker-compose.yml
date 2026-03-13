@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  tiktok-fact-checker:
+    build: .
+    container_name: tiktok-fact-checker
+    restart: unless-stopped
+    volumes:
+      - ./tiktok_factcheck_config.json:/app/tiktok_factcheck_config.json:ro
+      - ./temp_downloads:/app/temp_downloads
+    environment:
+      - PYTHONUNBUFFERED=1
+    ports:
+      - "8080:8080"
+    # Keep container running
+    tty: true
+    stdin_open: true
